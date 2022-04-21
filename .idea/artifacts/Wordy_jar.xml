@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Wordy:jar">
+  <artifact type="jar" build-on-make="true" name="Wordy:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Wordy_jar</output-path>
     <root id="archive" name="Wordy.jar">
       <element id="directory" name="META-INF">

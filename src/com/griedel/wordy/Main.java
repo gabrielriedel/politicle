@@ -2,25 +2,9 @@ package com.griedel.wordy;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.Random;
 import java.awt.*;
-import java.awt.Graphics;
 import javax.swing.*;
-import java.awt.Font;
-import java.util.Scanner;
-import java.util.*;
-import java.util.List;
-import java.io.File;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.io.IOException;
-import java.awt.EventQueue;
-import javax.swing.text.DefaultCaret;
 
 
 public class Main {

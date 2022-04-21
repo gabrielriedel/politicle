@@ -1,7 +1,5 @@
 package com.griedel.wordy;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;

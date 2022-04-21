@@ -1,8 +1,6 @@
 package com.griedel.wordy;
 
-import java.awt.*;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class GameController {
 
@@ -24,7 +22,7 @@ public class GameController {
 
     public String newGame()
     {
-//        String word = Wordy.randomWord();
+//        String word = com.griedel.wordy.Wordy.randomWord();
 //        word = word.toUpperCase();
 //        gameBoard.setWord(word);
         gameBoard.mainTitle("POLITICLE");

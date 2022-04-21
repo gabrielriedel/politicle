@@ -1,20 +1,23 @@
 package com.griedel.wordy;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.awt.*;
 import javax.swing.JFrame;
 import java.awt.Font;
-import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Graphics;
-import javax.swing.*;
+
 public class Wordy extends JFrame{
 
     private final String word;
@@ -128,6 +131,23 @@ public class Wordy extends JFrame{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    private static List<String> readAllLinesFromResource(String resource)  {
+        try {
+            List<String> lines = new ArrayList<>();
+            URL urlToDictionary = Wordy.class.getResource( "/"+resource);
+            InputStream stream = urlToDictionary.openStream();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+            while(reader.ready()) {
+                String line = reader.readLine();
+                lines.add(line);
+            }
+            return lines;
+        }
+        catch (IOException ex) {
+            System.out.format("I/O error: %s%n", ex);
+            return null;
+        }
+    }
 
 
     public static String randomWord() {
@@ -136,13 +156,21 @@ public class Wordy extends JFrame{
         Random r = new Random();
         try
         {
-            List<String> lines = Files.readAllLines(filePath, charset);
-            int length = lines.size();
+            List<String> lines = null;
+
+            try {
+                lines = Files.readAllLines(filePath, charset);
+            } catch (IOException ex) {
+                System.out.format("I/O error: %s%n", ex);
+            }
+
+            if (lines==null || lines.size()==0)
+                lines = readAllLinesFromResource("GovWords");
             int point = r.nextInt(lines.size());
             String word = lines.get(point);
             return word;
         }
-        catch (IOException ex) {
+        catch (Exception ex) {
             System.out.format("I/O error: %s%n", ex);
             return "";
         }
