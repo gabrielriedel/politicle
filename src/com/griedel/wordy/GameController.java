@@ -11,6 +11,10 @@ public class GameController {
         this.gameBoard = gameBoard;
     }
 
+    public String getWord() {
+        return word;
+    }
+
     public String setGovWord()
     {
         this.word = Wordy.randomWord();

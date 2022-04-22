@@ -1,10 +1,10 @@
 package com.griedel.wordy;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class GameBoardCanvas extends Canvas {
@@ -298,10 +298,20 @@ public class GameBoardCanvas extends Canvas {
 
     public boolean isInList(String guess) throws java.io.IOException
     {
-        File f1=new File("5word.txt"); //Creation of File Descriptor for input file
+        String resource = "5word.txt";
         String[] words=null;  //Intialize the word Array
-        FileReader fr = new FileReader(f1);  //Creation of File Reader object
-        BufferedReader br = new BufferedReader(fr); //Creation of BufferedReader object
+        BufferedReader br = null;
+        FileReader fr = null;
+        if (Files.exists(Paths.get(resource))) {
+            File f1 = new File(resource); //Creation of File Descriptor for input file
+            fr = new FileReader(f1);  //Creation of File Reader object
+            br = new BufferedReader(fr); //Creation of BufferedReader object
+        } else{
+            URL urlToDictionary = Wordy.class.getResource("/" + resource);
+            InputStream stream = urlToDictionary.openStream();
+            br = new BufferedReader(new InputStreamReader(stream));
+        }
+
         String s;
         String input = guess;   // Input word to be searched
         int count=0;   //Intialize the word to zero
@@ -319,7 +329,8 @@ public class GameBoardCanvas extends Canvas {
                 }
             }
         }
-        fr.close();
+        if (fr!=null)
+            fr.close();
         if(count!=0)  //Check for count not equal to zero
         {
             return true;

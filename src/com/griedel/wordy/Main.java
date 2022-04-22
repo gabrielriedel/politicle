@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 import java.awt.*;
 import javax.swing.*;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 
 public class Main {
@@ -13,6 +17,7 @@ public class Main {
     public static void main(String[] args) {
         Main m = new Main();
         JFrame f = new JFrame();
+        f.setDefaultCloseOperation(EXIT_ON_CLOSE);
         f.setEnabled(true);
         JPanel p = new JPanel();
         p.setRequestFocusEnabled(true);
@@ -31,6 +36,7 @@ public class Main {
         JButton yes = new JButton("YES");
         //yes.setBounds(50,50, 40, 40);
         JButton no = new JButton("NO");
+
         // yes.setBounds(50,80, 40, 40);
         // inputPanel.setSize(400, 200);
         // inputPanel.setBackground(Color.GRAY);
@@ -64,6 +70,18 @@ public class Main {
         p.add(gamePanel);
         p.add(yes);
         p.add(no);
+        JTextField debugfieldGuess = new JTextField(20);
+        debugfieldGuess.setBounds(200, 400, 10, 100);
+
+        p.add(debugfieldGuess);
+        JTextField debugfieldWord = new JTextField(20);
+        debugfieldWord.setBounds(200, 600, 10, 100);
+        p.add(debugfieldWord);
+
+        JTextField debugfieldOut = new JTextField(20);
+        debugfieldOut.setBounds(200, 800, 10, 400);
+        p.add(debugfieldOut);
+
 
 
         GameController game = new GameController(canvas);
@@ -71,16 +89,24 @@ public class Main {
         p.setVisible(true);
         f.setVisible(true);
         String wordle = game.newGame();
+        debugfieldWord.setText(game.getWord());
+
 //        String wordle = game.setGovWord();
 
         inputField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event)  {
                 String temp = inputField.getText();
                 System.out.println(temp);
+                debugfieldGuess.setText(temp);
                 try {
                     game.tryNewGuess(temp);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    StringWriter sw = new StringWriter();
+                    PrintWriter pw = new PrintWriter(sw);
+                    e.printStackTrace(pw);
+                    debugfieldOut.setText(sw.toString());
+
                 }
                 inputField.setText("");
 
@@ -94,7 +120,7 @@ public class Main {
 //                canvas.setWord(word);
                 canvas.setInitializeBoard(true);
                 game.setGovWord();
-
+                debugfieldWord.setText(game.getWord());
                 canvas.repaint();
             }
         });
