@@ -1,3 +1,4 @@
 *.dmg
 out/*
-
+.DS_Store
+Politicle.app/*
