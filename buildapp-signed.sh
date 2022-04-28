@@ -1,1 +1,1 @@
-jpackage --name Politicle --input . --main-jar out/artifacts/Wordy_jar/Wordy.jar --jlink-options --bind-services --mac-signing-key-user-name "Lance Riedel" --mac-sign
+/Library/Java/JavaVirtualMachines/jdk-17.0.3.jdk/Contents/Home/bin/jpackage --input ./app --name Politicle  --main-jar Wordy.jar --jlink-options --bind-services --mac-signing-key-user-name "Lance Riedel" --mac-sign
